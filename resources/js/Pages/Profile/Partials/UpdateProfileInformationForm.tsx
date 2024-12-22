@@ -2,20 +2,23 @@ import InputError from '@/C/InputError';
 import InputLabel from '@/C/InputLabel';
 import PrimaryButton from '@/C/PrimaryButton';
 import TextInput from '@/C/TextInput';
+import { User } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
     className = '',
+    user,
 }: {
     mustVerifyEmail: boolean;
     status?: string;
     className?: string;
+    user: User;
 }) {
-    const user = usePage().props.auth.user;
+    // const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({

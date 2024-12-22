@@ -2,14 +2,16 @@ import ApplicationLogo from '@/C/ApplicationLogo';
 import Dropdown from '@/C/Dropdown';
 import NavLink from '@/C/NavLink';
 import ResponsiveNavLink from '@/C/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
+import { User } from '@/types';
+import { Link } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 
 export default function Authenticated({
     header,
     children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
-    const user = usePage().props.auth.user;
+    user,
+}: PropsWithChildren<{ header?: ReactNode; user: User }>) {
+    // const user = usePage().props.auth.user;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
