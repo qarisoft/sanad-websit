@@ -1,4 +1,4 @@
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebar } from '@/components/company/app-sidebar';
 import {
     Breadcrumb,
     BreadcrumbItem,

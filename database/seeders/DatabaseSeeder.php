@@ -2,22 +2,42 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Company;
+use App\Models\Viewer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            CitySeeder::class,
+            CompanySeeder::class,
+            TaskSeeder::class,
         ]);
+        Viewer::factory()
+            ->afterCreating(function (Viewer $viewer) {
+                $C = Company::all()->random();
+                $C->tasks()->each(function ($task) {
+                    $task->publish();
+                });
+                $viewer
+                    ->user()
+                    ->update([
+                        'email' => 'a@a.a',
+                        'username' => 'a',
+                    ]);
+                $viewer
+                    ->companies()
+                    ->attach($C);
+                $viewer->save();
+                $viewer
+                    ->allowedTasks()
+                    ->syncWithoutDetaching($C->tasks->pluck('id')->toArray());
+
+
+            })
+            ->create();
+
     }
 }
