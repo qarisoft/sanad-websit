@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\TasksStatusEnum;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Task;
@@ -14,9 +15,10 @@ class TaskSeeder extends Seeder
     {
         Company::all()->each(function (Company $company) {
             $company->customers()->each(function (Customer $customer) use ($company) {
-                Task::factory(rand(5, 10))->create([
+                Task::factory(2)->create([
                     'company_id' => $company->id,
                     'customer_id' => $customer->id,
+                    'task_status_id' => TasksStatusEnum::cases()[rand(0, 7)]->model()?->id ?? 1,
 
                 ]);
             });

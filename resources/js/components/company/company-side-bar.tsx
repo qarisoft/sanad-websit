@@ -50,7 +50,7 @@ const data = {
     ],
     navMain: [
         {
-            title: 'Playground',
+            title: 'الرئيسية',
             url: '#',
             icon: SquareTerminal,
             isActive: true,
@@ -70,7 +70,7 @@ const data = {
             ],
         },
         {
-            title: 'Models',
+            title: 'المعاينات',
             url: '#',
             icon: Bot,
             items: [
@@ -89,7 +89,7 @@ const data = {
             ],
         },
         {
-            title: 'Documentation',
+            title: 'المستخدمين',
             url: '#',
             icon: BookOpen,
             items: [
@@ -112,7 +112,7 @@ const data = {
             ],
         },
         {
-            title: 'Settings',
+            title: 'الأعدادات',
             url: '#',
             icon: Settings2,
             items: [

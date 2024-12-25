@@ -16,7 +16,7 @@ class CompanySeeder extends Seeder
 {
     public function run(): void
     {
-        Company::factory(10)
+        Company::factory(1)
             ->hasAttached(Viewer::factory(10))
             ->hasAttached(Customer::factory(10))
             ->has(Employee::factory(10))

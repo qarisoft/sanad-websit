@@ -19,6 +19,14 @@ class Customer extends Model
 {
     use HasFactory, HasUser, BelongsToManyCompany;
 
+//    protected function casts()
+//    {
+//        return [
+//            'user'
+//        ];
+//    }
+
+//    protected $with = ['user'];
     protected $fillable = [
         'name',
         'active',

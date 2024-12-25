@@ -69,7 +69,10 @@ export function NavMain({
                                         <span className={'ps-2'}>
                                             {item.title}
                                         </span>
-                                        <ChevronLeft className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:-rotate-90" />
+                                        {(item.items?.length ?? 0) > 0 && (
+
+                                            <ChevronLeft className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:-rotate-90" />
+                                        )}
                                     </SidebarMenuButton>
                                 </CollapsibleTrigger>
 

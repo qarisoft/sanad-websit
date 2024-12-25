@@ -18,8 +18,10 @@ class CustomerFactory extends Factory
      */
     public function definition(): array
     {
+        $u = User::factory()->state(['type' => UserType::Customer])->create();
         return [
-            'user_id' => User::factory()->state(['type' => UserType::Customer])->create(),
+            'user_id' => $u,
+            'name' => $u->name
         ];
     }
 
