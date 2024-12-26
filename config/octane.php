@@ -190,7 +190,7 @@ return [
         'routes',
         'composer.lock',
         '.env',
-        'lang/*'
+        'lang/*',
     ],
 
     /*
@@ -218,5 +218,6 @@ return [
     */
 
     'max_execution_time' => 30,
+    'https' => env('OCTANE_HTTPS', true),
 
 ];
