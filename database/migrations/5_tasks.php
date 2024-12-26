@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -17,6 +18,7 @@ return new class extends Migration {
             $table->string('notes')->nullable();
             $table->boolean('is_published')->default(false);
             $table->boolean('is_online')->default(false);
+            $table->boolean('is_closed')->default(false);
             $table->boolean('is_available')->default(true);
 
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
@@ -25,6 +27,7 @@ return new class extends Migration {
             $table->foreignId('task_status_id')->default(1);
             $table->foreignId('city_id');
             $table->json('location');
+            $table->json('pricing')->nullable();
 
             $table->timestamp('received_at')->nullable();
             $table->timestamp('must_do_at')->nullable();
@@ -71,10 +74,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('task_id');
             $table->foreignId('viewer_id')->nullable();
-            $table->json('data')->nullable();
+            $table->json('pricing')->nullable();
             $table->timestamps();
         });
-
 
     }
 };

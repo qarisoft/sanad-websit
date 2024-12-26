@@ -15,34 +15,35 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
-    use BelongsToCompany, HasFactory, ActiveTrait, OnlineTrait;
+    use ActiveTrait, BelongsToCompany, HasFactory, OnlineTrait;
 
     protected $casts = [
-        'must_do_at' => 'datetime',
         'is_published' => 'boolean',
         'is_available' => 'boolean',
         'is_online' => 'boolean',
+        'is_closed' => 'boolean',
+
+        'must_do_at' => 'datetime',
+        'published_at' => 'datetime',
+
         'attach' => 'array',
         'location' => 'array',
-        'published_at' => 'datetime',
     ];
+
     protected $guarded = [
     ];
 
     /* Relations */
-    /**
-     */
-
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
-//    public function user(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class);
-//
-//    }
+    //    public function user(): BelongsTo
+    //    {
+    //        return $this->belongsTo(User::class);
+    //
+    //    }
 
     public function status(): BelongsTo
     {
@@ -75,7 +76,7 @@ class Task extends Model
     public function scopeAllowed(Builder $query, int $id): void
     {
         $query->whereHas('allowedViewers',
-            fn(Builder $q) => $q->where('viewer_id', '=', $id)
+            fn (Builder $q) => $q->where('viewer_id', '=', $id)
         );
     }
 
@@ -87,17 +88,16 @@ class Task extends Model
     public function scopeDraft(Builder $query): void
     {
         $query->whereHas('status',
-            fn(Builder $q) => $q->where('code', '=', 'DRAFT')
+            fn (Builder $q) => $q->where('code', '=', 'DRAFT')
         );
     }
 
     public function scopeEqualTo(Builder $query, TasksStatusEnum $status): void
     {
         $query->whereHas('status',
-            fn(Builder $q) => $q->where('code', '=', $status->name)
+            fn (Builder $q) => $q->where('code', '=', $status->name)
         );
     }
-
 
     public function publish($a = true): void
     {
@@ -105,7 +105,8 @@ class Task extends Model
             $this->is_published = $a;
         }
         $this->is_online = $a;
-//        $this->is_availabel = $a;
+        $this->published_at = now();
+        //        $this->is_availabel = $a;
         $this->save();
     }
 
@@ -128,22 +129,24 @@ class Task extends Model
         $this->publish(false);
     }
 
+    public function close(): void
+    {
+        $this->is_closed = true;
+    }
+
     public function pricingEvaluations(): array
     {
         return EstatePricing::query()
             ->ofCompany($this->company_id)
             ->pluck('key')
-            ->map(fn($i, $n) => [
+            ->map(fn ($i, $n) => [
                 'task_id' => $this->id,
-                'id' => $this->id . '-' . $n,
+                'id' => $this->id.'-'.$n,
                 'name' => __($i),
                 'key' => $i,
             ])
             ->toArray();
     }
-
-
-
 
     // public function scopeSearch(Builder $query, ?string $like): Builder
     // {

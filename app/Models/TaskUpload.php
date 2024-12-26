@@ -11,13 +11,15 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class TaskUpload extends Model implements HasMedia
 {
-//    /** @use HasFactory<\Database\Factories\TaskUploadFactory> */
+    //    /** @use HasFactory<\Database\Factories\TaskUploadFactory> */
     use HasFactory, InteractsWithMedia;
+
+    protected $fillable = ['pricing'];
 
     protected function casts(): array
     {
         return [
-            'data' => Json::class,
+            'pricing' => Json::class,
         ];
     }
 
@@ -28,6 +30,6 @@ class TaskUpload extends Model implements HasMedia
 
     public function uploadedBy(): BelongsTo
     {
-        return $this->belongsTo(Employee::class, 'viewer_id');
+        return $this->belongsTo(Viewer::class);
     }
 }

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -19,7 +20,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique();
@@ -27,7 +27,6 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
-
 
         Schema::create('viewers', function (Blueprint $table) {
             $table->id();
@@ -43,7 +42,6 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
         });
 
-
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique();
@@ -57,20 +55,26 @@ return new class extends Migration {
             $table->boolean('is_active')->default(false);
         });
 
+        Schema::create('estate_types', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('company_id')->default(0);
+            $table->string('name');
+            $table->boolean('is_default')->default(false);
+            $table->timestamps();
+        });
 
         Schema::create('estate_pricings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id');
             $table->boolean('is_default')->default(false);
-//            $table->float('total_price')->default(0);
-//            $table->float('meter_square_price')->default(0);
-//            $table->float('meter_square_area')->default(0);
+            //            $table->float('total_price')->default(0);
+            //            $table->float('meter_square_price')->default(0);
+            //            $table->float('meter_square_area')->default(0);
             $table->string('name');
             $table->string('key');
             $table->unique(['company_id', 'key']);
             $table->timestamps();
         });
-
 
     }
 };

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -24,32 +23,15 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('/auth/token', [AuthController::class, 'token']);
     Route::post('/auth/delete', [AuthController::class, 'delete']);
-
-//    Route::get('/tasks',function(){
-//        return [
-//            'tasks'=> QueryBuilder::for(Task::class)->withAggregate('city','name')->paginate()
-//        ];
-//    });
-
-
     Route::get('/home', [ApiTaskController::class, 'index']);
     Route::post('/home/accept/{task}', [ApiTaskController::class, 'accept']);
+
     Route::post('/home/upload/{upload}', [ApiTaskController::class, 'upload']);
     Route::post('/home/upload/create/{task}', [ApiTaskController::class, 'createUpload']);
+
     Route::post('/home/close/{task}', [ApiTaskController::class, 'close']);
     Route::post('/home/cancel/{task}', [ApiTaskController::class, 'cancelTask']);
-
-
-//    Route::get('/cities',function(){
-//        return [
-//
-//            'cities'=> \Spatie\QueryBuilder\QueryBuilder::for(City::class)->paginate()
-//        ];
-//    });
-
-
 });
-
 
 Route::get('/ping-test', function (Request $request) {
     return [

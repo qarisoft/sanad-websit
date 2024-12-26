@@ -5,6 +5,7 @@ import {
     Command,
     Frame,
     GalleryVerticalEnd,
+    HomeIcon,
     Map,
     PieChart,
     Settings2,
@@ -23,6 +24,7 @@ import {
     SidebarHeader,
     SidebarRail,
 } from '@/components/ui/sidebar';
+import { Home, SHomeIcon } from '../ui/icons';
 
 // This is sample data.
 const data = {
@@ -52,7 +54,7 @@ const data = {
         {
             title: 'الرئيسية',
             url: '#',
-            icon: SquareTerminal,
+            icon: SHomeIcon,
             isActive: true,
             items: [
                 // {

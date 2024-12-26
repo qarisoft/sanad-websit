@@ -11,14 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Viewer extends Model
 {
-    use HasFactory, BelongsToManyCompany, HasUser, HasTasks;
-
+    use BelongsToManyCompany, HasFactory, HasTasks, HasUser;
 
     public function allowedTasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class);
     }
-
 
     public function hasTask(Task $task): bool
     {
@@ -26,6 +24,21 @@ class Viewer extends Model
 
             return ($task->viewer_id ?? 0) == $this->id;
         }
+
         return false;
+    }
+
+    public function canTouchTask(Task $t): bool
+    {
+        return $this->id == $t->viewer_id;
+    }
+
+    public function canNotUpload(TaskUpload $u): bool
+    {
+        if ($this->canTouchTask($u->task) && ! $u->task->is_closed) {
+            return false;
+        }
+
+        return true;
     }
 }

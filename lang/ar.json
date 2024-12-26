@@ -9,6 +9,7 @@
     "CLOSED": "منتهية",
     "CANCELED": "ملغية",
     "invalid credentials": "اسم المستخدم او كلمة المرور غلط",
+    "invalid_credentials": "اسم المستخدم او كلمة المرور غلط",
     "data": "داتا",
     "Is active": "نشط",
     "Is viewer": "معاين",

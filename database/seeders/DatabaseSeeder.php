@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\Employee;
+use App\Models\EstateType;
 use App\Models\User;
 use App\Models\Viewer;
 use Illuminate\Database\Seeder;
@@ -12,6 +13,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+
+        EstateType::factory()->createMany([
+            ['name' => 'منزل'],
+            ['name' => 'قطعة ارظ'],
+            ['name' => 'عمارة'],
+            ['name' => 'فلة'],
+        ]);
         $this->call([
             CitySeeder::class,
             CompanySeeder::class,
@@ -29,6 +37,7 @@ class DatabaseSeeder extends Seeder
                 $C->tasks()->each(function ($task) {
                     $task->publish();
                 });
+
                 $viewer
                     ->user()
                     ->update([
@@ -42,7 +51,6 @@ class DatabaseSeeder extends Seeder
                 $viewer
                     ->allowedTasks()
                     ->syncWithoutDetaching($C->tasks->pluck('id')->toArray());
-
 
             })
             ->create();
