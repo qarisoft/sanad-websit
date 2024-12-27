@@ -111,10 +111,11 @@ class ApiTaskController extends Controller
         }
 
         $data = '';
-        request()->validate([
-            'img' => 'required',
-            'img.*' => 'required|mimes:jpg,png,jpeg',
-        ]);
+        // request()->validate([
+        //     'img' => 'required',
+        //     'img.*' => 'required|mimes:jpg,png,jpeg',
+        // ]);
+
         try {
             $file = $request->file('img');
             $upload->addMedia($file)->toMediaCollection();
