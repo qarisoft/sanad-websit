@@ -74,6 +74,7 @@ class ApiTaskController extends Controller
 
     public function createUpload(Request $request, Task $task): JsonResponse
     {
+        // $this->va
         if (! $request->user()->viewer->canTouchTask($task)) {
             return $this->response(0, 'fail', []);
         }
