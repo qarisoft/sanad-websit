@@ -125,9 +125,9 @@ class ApiTaskController extends Controller
         return $this->response(1, 'good', $data);
     }
 
-    public function accept(Request $request): JsonResponse
+    public function accept(Request $request, Task $task): JsonResponse
     {
-        $task = Task::find($request->id)->first();
+        // $task = Task::find($request->id)->first();
         // if ($task==null) {
         // code...
         // }

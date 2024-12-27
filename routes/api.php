@@ -25,13 +25,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/delete', [AuthController::class, 'delete']);
     Route::get('/home', [ApiTaskController::class, 'index']);
 
-    Route::post('/tasks/accept', [ApiTaskController::class, 'accept']);
+    Route::put('/tasks/{task}/accept', [ApiTaskController::class, 'accept']);
+    Route::put('/tasks/{task}/upload/create', [ApiTaskController::class, 'createUpload']);
+    Route::put('/tasks/{task}/uploads/{upload}', [ApiTaskController::class, 'upload']);
 
-    Route::post('/home/upload/{upload}', [ApiTaskController::class, 'upload']);
-    Route::post('/home/upload/create/{task}', [ApiTaskController::class, 'createUpload']);
+    // Route::post('/home/upload/{upload}', [ApiTaskController::class, 'upload']);
+    // Route::post('/home/upload/create/{task}', [ApiTaskController::class, 'createUpload']);
 
-    Route::post('/home/close/{task}', [ApiTaskController::class, 'close']);
-    Route::post('/home/cancel/{task}', [ApiTaskController::class, 'cancelTask']);
+    // Route::post('/home/close/{task}', [ApiTaskController::class, 'close']);
+    // Route::post('/home/cancel/{task}', [ApiTaskController::class, 'cancelTask']);
 });
 
 Route::get('/ping-test', function (Request $request) {
