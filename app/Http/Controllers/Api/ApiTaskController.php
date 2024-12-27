@@ -92,6 +92,7 @@ class ApiTaskController extends Controller
 
                 return $this->response(1, '', [
                     'id' => $u->id,
+                    'upload' => $u,
                 ]);
             }
         );
