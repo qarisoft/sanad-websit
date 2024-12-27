@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { router } from '@inertiajs/react';
 import { CellContext, ColumnDef, HeaderContext } from '@tanstack/react-table';
 import { ArrowUpDown, Eye, MoreHorizontal } from 'lucide-react';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import moment from './time';
 // type Task = {};
 
@@ -62,12 +62,12 @@ type Task = {
     };
     location: { latitude: _N; longitude: _N };
     status:
-        | {
-              id: number;
-              name: string;
-              color: string;
-          }
-        | undefined;
+    | {
+        id: number;
+        name: string;
+        color: string;
+    }
+    | undefined;
     received_at: _S;
     must_do_at: _S;
     finished_at: _S;
@@ -250,8 +250,32 @@ const Index = ({
 };
 
 const Actions = ({ onClick }: { onClick: () => void }) => {
+    const ref = useRef<HTMLInputElement>(null)
+    // console.log(ref.current?.value);
+
+    // us/
+    const upload: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+        const c = ref.current;
+        console.log('upload');
+
+        if (c && e.target.value && e.target.files) {
+            console.log('upload post');
+            router.post(route('tasks.upload', 1), {
+                img: e.target.files[0]
+            }, {
+                onSuccess: () => {
+                    console.log('upload success');
+                    c.files = null
+                }
+            })
+        }
+    }, [])
+
     return (
         <div className="flex items-center justify-end text-end">
+            <input
+                onChange={upload}
+                ref={ref} type='file' className='hidden' />
             <Eye
                 size={20}
                 className="text-black/80 opacity-0 hover:cursor-pointer group-hover:opacity-100"
@@ -269,7 +293,18 @@ const Actions = ({ onClick }: { onClick: () => void }) => {
                         Copy payment ID
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>View customer</DropdownMenuItem>
+                    <DropdownMenuItem
+                        onClick={() => {
+                            if (ref.current) {
+                                ref.current.click()
+                            }
+                        }}
+
+                    >
+
+                        View customer
+
+                    </DropdownMenuItem>
                     <DropdownMenuItem>View payment details</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

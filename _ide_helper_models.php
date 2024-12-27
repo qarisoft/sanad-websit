@@ -253,6 +253,8 @@ namespace App\Models{
  * @property-read \App\Models\City|null $city
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\Customer|null $customer
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
  * @property-read \App\Models\TaskStatus|null $status
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUpload> $uploads
  * @property-read int|null $uploads_count
@@ -304,7 +306,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereViewerId($value)
  */
-	class Task extends \Eloquent {}
+	class Task extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }
 
 namespace App\Models{

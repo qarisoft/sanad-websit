@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Task extends Model
+class Task extends Model implements HasMedia
 {
-    use ActiveTrait, BelongsToCompany, HasFactory, OnlineTrait;
+    use ActiveTrait, BelongsToCompany, HasFactory, InteractsWithMedia, OnlineTrait;
 
     protected $casts = [
         'is_published' => 'boolean',

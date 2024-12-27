@@ -11,6 +11,13 @@ use Inertia\Response;
 
 class TaskController extends Controller
 {
+    public function upload(Request $request, Task $task)
+    {
+        $task->addMedia($request->files->get('img'))->toMediaCollection();
+
+        return back()->with('status', 'good');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -27,18 +34,17 @@ class TaskController extends Controller
         ])
             ->where('company_id', $v?->company_id);
 
-
         if ($search) {
-            $ss = fn($query) => $query->where('name', 'like', '%' . $search . '%');
+            $ss = fn ($query) => $query->where('name', 'like', '%'.$search.'%');
 
-            $tasks = $tasks->where('code', 'like', '%' . $search . '%')
+            $tasks = $tasks->where('code', 'like', '%'.$search.'%')
                 ->orWhereHas('customer', $ss)
                 ->orWhereHas('status', $ss)
                 ->orWhereHas('city', $ss);
         }
         if ($sort) {
 
-            list($v1, $v2) = explode(':', $sort);
+            [$v1, $v2] = explode(':', $sort);
             if ($v1) {
 
                 if ($v2 == 'asc' || $v2 == 'desc') {
@@ -49,8 +55,7 @@ class TaskController extends Controller
                         $tasks->orderBy(
                             Customer::with('user.name')->addSelect('name')
                                 ->whereColumn('customers.id', 'tasks.customer_id')
-                                ->orderBy('name', $v2)
-                            , $v2
+                                ->orderBy('name', $v2), $v2
                         );
                     }
                 }
