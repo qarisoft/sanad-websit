@@ -39,13 +39,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(fn ($request, Throwable $e) => $request->is('api/*'));
 
         $exceptions->respond(function (Response $response, Throwable $e, $request) {
-            if ($request->is('api/*')) {
-                if ($e instanceof NotFoundHttpException) {
-                    return response()->json([
-                        'message' => 'not found',
-                    ], Response::HTTP_NOT_FOUND);
-                }
-            }
+            // if ($request->is('api/*')) {
+            //     if ($e instanceof NotFoundHttpException) {
+            //         return response()->json([
+            //             'message' => 'not found',
+            //         ], Response::HTTP_NOT_FOUND);
+            //     }
+            // }
 
             return $response;
         });
