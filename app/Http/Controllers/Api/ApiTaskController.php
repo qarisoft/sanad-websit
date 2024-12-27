@@ -111,7 +111,7 @@ class ApiTaskController extends Controller
         }
 
         $data = '';
-        $request->validate([
+        request()->validate([
             'img' => 'required',
             'img.*' => 'required|mimes:jpg,png,jpeg',
         ]);
