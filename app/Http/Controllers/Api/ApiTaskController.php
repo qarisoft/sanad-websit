@@ -148,7 +148,7 @@ class ApiTaskController extends Controller
 
         return $this->response(1, 'ok', [
             'task' => $this->taskResponse($task),
-            // 'pricing' => $p,
+            'pricing' => $p,
         ]);
 
     }
