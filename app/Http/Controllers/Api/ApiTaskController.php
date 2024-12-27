@@ -113,7 +113,7 @@ class ApiTaskController extends Controller
         $data = '';
         $request->validate([
             'img' => 'required',
-            'img.*' => 'required|mimes:jpg,png,jpeg|max:2048',
+            'img.*' => 'required|mimes:jpg,png,jpeg',
         ]);
         try {
             $file = $request->file('img');
