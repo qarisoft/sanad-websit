@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/tasks/{task}/accept', [ApiTaskController::class, 'accept']);
     Route::get('/tasks/{task}/upload/create', [ApiTaskController::class, 'createUpload']);
-    Route::get('/tasks/{task}/uploads/{upload}', [ApiTaskController::class, 'upload']);
+    Route::get('/tasks/uploads/{upload}', [ApiTaskController::class, 'upload']);
 
     // Route::post('/home/upload/{upload}', [ApiTaskController::class, 'upload']);
     // Route::post('/home/upload/create/{task}', [ApiTaskController::class, 'createUpload']);
