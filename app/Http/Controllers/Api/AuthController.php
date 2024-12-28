@@ -46,7 +46,7 @@ class AuthController extends Controller
 
             if (! Auth::attempt($request->only($email, 'password'))) {
                 return response([
-                    'error' => 'invalid credentials',
+                    'error' => __('invalid credentials'),
                 ], Response::HTTP_UNAUTHORIZED);
             }
             $user = Auth::user();
