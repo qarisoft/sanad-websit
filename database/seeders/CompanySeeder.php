@@ -18,7 +18,7 @@ class CompanySeeder extends Seeder
     {
         Company::factory(1)
             ->hasAttached(Viewer::factory(10))
-            ->hasAttached(Customer::factory(100))
+            ->hasAttached(Customer::factory(400))
             ->has(Employee::factory(10))
             ->create();
     }
