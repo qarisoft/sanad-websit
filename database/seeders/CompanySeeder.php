@@ -18,11 +18,10 @@ class CompanySeeder extends Seeder
     {
         Company::factory(1)
             ->hasAttached(Viewer::factory(10))
-            ->hasAttached(Customer::factory(10))
+            ->hasAttached(Customer::factory(100))
             ->has(Employee::factory(10))
             ->create();
     }
-
 
     private function _createTasks(Customer $customer, Company $company): void
     {
@@ -37,7 +36,7 @@ class CompanySeeder extends Seeder
     private function _createEmployees(Company $company): void
     {
         User::factory(rand(5, 10))->create([
-            'type' => UserType::Employee
+            'type' => UserType::Employee,
         ])->each(function ($user) use ($company) {
             $company->employees()->create([
                 'user_id' => $user->id,
@@ -50,7 +49,7 @@ class CompanySeeder extends Seeder
     private function _createViewers(Company $company): void
     {
         User::factory(rand(5, 10))->create([
-            'type' => UserType::Viewer
+            'type' => UserType::Viewer,
         ])->each(function ($user) use ($company) {
             $company->employees()->create([
                 'user_id' => $user->id,
@@ -65,9 +64,8 @@ class CompanySeeder extends Seeder
     {
         $customers = User::factory(rand(5, 10))
             ->create([
-                'type' => UserType::Customer
+                'type' => UserType::Customer,
             ]);
-
 
         $customers->each(function ($user) use ($company) {
             $company
@@ -78,8 +76,6 @@ class CompanySeeder extends Seeder
                 ]);
         });
 
-//            return $customers;
+        //            return $customers;
     }
-
-
 }
