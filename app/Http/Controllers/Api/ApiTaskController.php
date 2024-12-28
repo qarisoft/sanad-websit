@@ -17,7 +17,7 @@ class ApiTaskController extends Controller
 {
     // public function response
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $id = request()->user()->viewer?->id;
         if ($id == null) {
@@ -29,7 +29,7 @@ class ApiTaskController extends Controller
                 ->allowed($id)
                 ->published()
                 ->online()
-                ->paginate()
+                ->paginate($request->query('per_page') ?? 20)
                 ->through(fn ($t) => $this->taskResponse($t)),
 
         );
